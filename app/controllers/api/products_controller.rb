@@ -1,11 +1,12 @@
 class Api::ProductsController < ApplicationController
   def show
     product_params = params.permit(:id)
-    product = Product.find_by(external_id: product_params[:id])
+    if product = Product.find_by(external_id: product_params[:id])
 
-    red_sky = ApiClients::RedSky.build_red_sky_product(
-      product_id: product.external_id
-    )
+      red_sky = ApiClients::RedSky.build_red_sky_product(
+        product_id: product.try(:external_id)
+      )
+    end
 
     if product && red_sky && red_sky.valid?
       render json: {
@@ -21,7 +22,7 @@ class Api::ProductsController < ApplicationController
       render json: {
         errors: {
           message: "product not found",
-          product_id: product_id
+          product_id: product_params[:id]
         }
       }, status: :unprocessable_entity
     end

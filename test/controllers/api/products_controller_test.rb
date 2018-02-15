@@ -5,7 +5,7 @@ class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
     @product = products(:my_product)
   end
 
-  test "should get show" do
+  test "should fetch product details with a valid product ID" do
     get api_product_url(@product.external_id)
     assert_response :success
     assert resp = JSON.parse(response.body)
@@ -17,5 +17,13 @@ class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
     assert price_details = resp['current_price']
     assert price_details.has_key?('value')
     assert price_details.has_key?('currency_code')
+  end
+
+  test "should return error message when product is not found" do
+    get api_product_url(id: 123)
+    assert_response :unprocessable_entity
+    assert resp = JSON.parse(response.body)
+
+    assert resp.has_key?('errors')
   end
 end
