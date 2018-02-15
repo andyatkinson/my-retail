@@ -1,32 +1,33 @@
 # My Retail
 
-## Install
+## Installation instructions
 
-Tested on OS X.
-Native dependencies:
-readline
+Notes: Tested on OS X with Ruby, managed by rbenv. Homebrew installed native dependencies, e.g. readline, postgres (tested with 9.5.4)
 
 `brew install readline`
-
-Install Postgres.
 
 Install ruby. Tested with 2.4.1. rbenv used to manage Ruby versions. Install bundler gem, which will manage all other gems installed.
 
 `bundle`
 
+Once the application gems are installed, running `rake` will run the build, and should be an additional verification point that everything is set up.
+
 
 #### Create databases
 
-A number of ways to do this, one way is from a `psql` prompt, run:
+There are a number of ways to do this, one way is from a `psql` prompt, run:
 
 ```sql
 create database my_retail_dev;
 create database my_retail_test;
 ```
 
+To create the database schema:
+
 `rake db:migrate`
 
-Load data
+To load data into the database using the Rails seeds functionality:
+
 `rake db:seed`
 
 Confirm data is loaded (example, may change):
@@ -56,26 +57,39 @@ e.g.
 
 ## Overview
 
-The Product resource has an ID and price details. The price details contain fields of data to manage pricing, and stored in a schemaless data store.
+The Product resource has an ID and price details, stored as JSON data, using the jsonb column type.
 
 ## API Testing
 
 Using something like Postman, make the following HTTP request.
 
-GET localhost:5000/api/products/{id}
+`GET http://localhost:5000/api/products/{id}`
 
 e.g. 15117729
 
-GET localhost:5000/api/products/15117729
+`GET http://localhost:5000/api/products/13860428`
 
 Response (e.g.):
 
 ```
-{"id":15117729,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 13.49,"currency_code":"USD"}}
+{
+    "id": 13860428,
+    "name": "The Big Lebowski (Blu-ray)",
+    "current_price": {
+        "value": 13.49,
+        "currency_code": "USD"
+    }
+}
 ```
+
+### Running the Application
+
+To boot up the application on port 5000:
+
+`rails s -p 5000`
 
 
 
 ## External Integrations
 
-HTTP interaction with Redsky service.
+HTTP interaction with Redsky service
