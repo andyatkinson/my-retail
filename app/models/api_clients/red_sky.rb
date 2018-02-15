@@ -25,6 +25,7 @@ module ApiClients
       name = get_product_details(product_id: product_id)
       if name
         ApiModels::RedSkyProduct.new(
+          product_id: product_id,
           name: name
         )
       else
