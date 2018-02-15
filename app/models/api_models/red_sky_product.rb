@@ -6,5 +6,9 @@ module ApiModels
       @product_id = product_id
       @name = name
     end
+
+    def valid?
+      !!name
+    end
   end
 end

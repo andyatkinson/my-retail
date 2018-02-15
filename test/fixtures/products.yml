@@ -1,9 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  external_id: 1
-  price_details: 
-
-two:
-  external_id: 1
-  price_details: 
+my_product:
+  external_id: 13860428
+  price_details: {"current_price":{"value": 13.49,"currency_code":"USD"}}

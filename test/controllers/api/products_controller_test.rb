@@ -1,14 +1,21 @@
 require 'test_helper'
 
 class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @product = products(:my_product)
+  end
+
   test "should get show" do
-    get api_products_show_url
+    get api_product_url(@product.external_id)
     assert_response :success
-  end
+    assert resp = JSON.parse(response.body)
 
-  test "should get update" do
-    get api_products_update_url
-    assert_response :success
-  end
+    assert resp.has_key?('id')
+    assert resp.has_key?('name')
+    assert resp.has_key?('current_price')
 
+    assert price_details = resp['current_price']
+    assert price_details.has_key?('value')
+    assert price_details.has_key?('currency_code')
+  end
 end
