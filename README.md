@@ -112,7 +112,6 @@ PUT http://localhost:5000/api/products/13860428
 ```
 curl -X PUT \
   http://localhost:5000/api/products/13860428 \
-  -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{
     "product": {
@@ -123,6 +122,26 @@ curl -X PUT \
 '
 ```
 
+#### Product Curl Request examples
+
+```
+curl -X PUT \
+  https://limitless-oasis-33699.herokuapp.com/api/products/13860428 \
+  -H 'content-type: application/json' \
+  -d '{
+    "product": {
+    	"id": 13860428,
+    	"value": 17.29
+    }
+}
+'
+```
+
+
+```
+curl -X GET https://limitless-oasis-33699.herokuapp.com/api/products/13860428
+```
+
 
 ### Running the Application
 
@@ -130,8 +149,16 @@ To boot up the application on port 5000:
 
 `rails s -p 5000`
 
+Or:
+
+`foreman start`
 
 
 ## External Integrations
 
 HTTP interaction with Redsky service
+
+
+## Additional Performance Improvements (future)
+
+Cache the Redsky service calls periodically, TTL of 1 minute
