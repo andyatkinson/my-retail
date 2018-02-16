@@ -8,4 +8,8 @@ class Product < ApplicationRecord
     # NOTE: in real app, handle these parse issues
     price_details['current_price']['currency_code']
   end
+
+  def value=(value)
+    price_details['current_price']['value'] = value
+  end
 end

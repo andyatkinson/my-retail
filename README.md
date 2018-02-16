@@ -61,7 +61,9 @@ The Product resource has an ID and price details, stored as JSON data, using the
 
 ## API Testing
 
-Using something like Postman, make the following HTTP request.
+### Fetch product details
+
+Using Postman or curl, make the following HTTP requests.
 
 `GET http://localhost:5000/api/products/{id}`
 
@@ -81,6 +83,46 @@ Response (e.g.):
     }
 }
 ```
+
+##### Curl request
+
+```
+curl -X GET http://localhost:5000/api/products/13860428
+```
+
+### Updating product price
+
+Make a put request to the following URL with the following JSON body as the payload.
+
+Set the body to application/json.
+
+PUT http://localhost:5000/api/products/13860428
+
+```
+{
+    "product": {
+      "id": 13860428,
+      value": 17.50
+    }
+}
+```
+
+#### Curl request
+
+```
+curl -X PUT \
+  http://localhost:5000/api/products/13860428 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+    "product": {
+    	"id": 13860428,
+    	"value": 17.50
+    }
+}
+'
+```
+
 
 ### Running the Application
 

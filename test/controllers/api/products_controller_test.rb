@@ -26,4 +26,16 @@ class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert resp.has_key?('errors')
   end
+
+  test "updating the product price via the api" do
+    payload = {
+      product: {
+        id: @product.external_id,
+        value: 17.50
+      },
+      format: :json
+    }
+    put api_product_url(@product.external_id), params: payload.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
+    assert_response :ok
+  end
 end
