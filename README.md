@@ -122,7 +122,7 @@ curl -X PUT \
 '
 ```
 
-#### Product Curl Request examples
+#### Production Curl Request examples
 
 ```
 curl -X PUT \
@@ -161,4 +161,8 @@ HTTP interaction with Redsky service
 
 ## Additional Performance Improvements (future)
 
-Cache the Redsky service calls periodically, TTL of 1 minute
+#### Cache the Redsky service calls periodically, TTL of 1 minute
+
+As requests for product IDs come in, we could cache the response with a key of the product ID, and the value as the JSON string, e.g. in memcached or another key-value store, and then for subsequent requests for the same ID, server the JSON string from the cache store and not make a live HTTP call.
+
+We could specify a period of time that the cached response is fresh, e.g. 1 minute (the TTL).
