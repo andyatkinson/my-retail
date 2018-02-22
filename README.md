@@ -65,11 +65,11 @@ The Product resource has an ID and price details, stored as JSON data, using the
 
 Using Postman or curl, make the following HTTP requests.
 
-`GET http://localhost:5000/api/products/{id}`
+`GET http://localhost:5000/products/{id}`
 
 e.g. 15117729
 
-`GET http://localhost:5000/api/products/13860428`
+`GET http://localhost:5000/products/13860428`
 
 Response (e.g.):
 
@@ -87,7 +87,7 @@ Response (e.g.):
 ##### Curl request
 
 ```
-curl -X GET http://localhost:5000/api/products/13860428
+curl -X GET http://localhost:5000/products/13860428
 ```
 
 ### Updating product price
@@ -96,7 +96,7 @@ Make a put request to the following URL with the following JSON body as the payl
 
 Set the body to application/json.
 
-PUT http://localhost:5000/api/products/13860428
+PUT http://localhost:5000/products/13860428
 
 ```
 {
@@ -111,7 +111,7 @@ PUT http://localhost:5000/api/products/13860428
 
 ```
 curl -X PUT \
-  http://localhost:5000/api/products/13860428 \
+  http://localhost:5000/products/13860428 \
   -H 'content-type: application/json' \
   -d '{
     "product": {
@@ -126,7 +126,7 @@ curl -X PUT \
 
 ```
 curl -X PUT \
-  https://limitless-oasis-33699.herokuapp.com/api/products/13860428 \
+  https://limitless-oasis-33699.herokuapp.com/products/13860428 \
   -H 'content-type: application/json' \
   -d '{
     "product": {
@@ -139,7 +139,7 @@ curl -X PUT \
 
 
 ```
-curl -X GET https://limitless-oasis-33699.herokuapp.com/api/products/13860428
+curl -X GET https://limitless-oasis-33699.herokuapp.com/products/13860428
 ```
 
 
@@ -153,6 +153,9 @@ Or:
 
 `foreman start`
 
+## Benchmarking
+
+TODO
 
 ## External Integrations
 
@@ -166,3 +169,11 @@ HTTP interaction with Redsky service
 As requests for product IDs come in, we could cache the response with a key of the product ID, and the value as the JSON string, e.g. in memcached or another key-value store, and then for subsequent requests for the same ID, server the JSON string from the cache store and not make a live HTTP call.
 
 We could specify a period of time that the cached response is fresh, e.g. 1 minute (the TTL).
+
+#### Optimize JSON serialization
+
+Benchmark various JSON serialization options.
+
+#### Consider a slim API response variant
+
+Using a parameter, a client could request a reduced set of attributes that represent the object. For example, in a mobile app on a summary screen, a trade-off for a faster summary screen could be fetching fewer attributes for each row, which would take less time to serialize, and produce a smaller JSON payload.

@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
+class ProductsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @product = products(:my_product)
   end
 
   test "should fetch product details with a valid product ID" do
-    get api_product_url(@product.external_id)
+    get product_url(@product.external_id)
     assert_response :success
     assert resp = JSON.parse(response.body)
 
@@ -20,7 +20,7 @@ class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should return error message when product is not found" do
-    get api_product_url(id: 123)
+    get product_url(id: 123)
     assert_response :unprocessable_entity
     assert resp = JSON.parse(response.body)
 
@@ -35,7 +35,9 @@ class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
       },
       format: :json
     }
-    put api_product_url(@product.external_id), params: payload.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
+    put product_url(@product.external_id),
+      params: payload.to_json,
+      headers: { 'CONTENT_TYPE' => 'application/json' }
     assert_response :ok
   end
 end
