@@ -161,7 +161,20 @@ Or:
 
 ## Benchmarking
 
-TODO
+Benchmarking with wrk tool
+https://github.com/wg/wrk
+
+```
+$ wrk -t1 -c10 -d10s http://127.0.0.1:5000/products/13860428
+Running 10s test @ http://127.0.0.1:5000/products/13860428
+  1 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   135.66ms   85.83ms 753.22ms   95.61%
+    Req/Sec    40.25     11.22    50.00     78.26%
+  382 requests in 10.08s, 176.82KB read
+Requests/sec:     37.89
+Transfer/sec:     17.54KB
+```
 
 ## External Integrations
 
