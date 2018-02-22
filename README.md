@@ -142,6 +142,12 @@ curl -X PUT \
 curl -X GET https://limitless-oasis-33699.herokuapp.com/products/13860428
 ```
 
+422 Response example
+
+```
+curl -X GET https://limitless-oasis-33699.herokuapp.com/products/123
+```
+
 
 ### Running the Application
 
